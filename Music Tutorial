@@ -9,16 +9,16 @@ WHERE song = 'Alison';
 
  -- Q2. Which artist recorded the song 'Exodus'?
 
-select artist from album
-join track on (album.asin = track.album)
-where song = 'Exodus';
+SELECT artist FROM album
+JOIN track ON (album.asin = track.album)
+WHERE song = 'Exodus';
 
  -- Q3. Show the song for each track on the album 'Blur'
 
-select song from track
-join album
-on track.album = album.asin
-where artist = 'Blur';
+SELECT song FROM track
+JOIN album
+ON track.album = album.asin
+WHERE artist = 'Blur';
 
  -- Q4. For each album show the title and the total number of track.
 
@@ -31,27 +31,27 @@ GROUP BY title;
 -- Q5. For each album show the title and the total number of tracks containing the word 'Heart' 
 --(albums with no such tracks need not be shown).
 
-select title, count(*)
-from album
-join track on album.asin=track.album
+SELECT title, count(*)
+FROM album
+JOIN track ON album.asin=track.album
 where song LIKE '%Heart%'
 group by title;
 
 -- Q6. A "title track" is where the song is the same as the title. Find the title tracks.
 
-select song from track
-join album on track.album = album.asin
+SELECT song FROM track
+JOIN album ON track.album = album.asin
 where track.song = album.title;
 
 -- Q7. An "eponymous" album is one where the title is the same as the artist (for example the album 'Blur' by the band 'Blur'). Show the eponymous albums.
 
-select title from album
+SELECT title FROM album
 where title = artist;
 
 -- Q8. Find the songs that appear on more than 2 albums. Include a count of the number of times each shows up.
 
-select track.song, count(distinct album.title)
-from album join track on album.asin = track.album
+SELECT track.song, count(distinct album.title)
+FROM album join track ON album.asin = track.album
 group by track.song
 HAVING count(distinct album.title) > 2;
 
