@@ -1,91 +1,57 @@
-### Sql Zoo Music Tutorial Answers
+-- Sql Zoo Music Tutorial Answers
 
- # Q1. Find the title and artist who recorded the song 'Alison'.
+ -- Q1. Find the title and artist who recorded the song 'Alison'.
 
  SELECT title, artist
 FROM album JOIN track
 ON (album.asin=track.album)
 WHERE song = 'Alison';
 
- 
+ -- Q2. Which artist recorded the song 'Exodus'?
 
-# Q2. Which artist recorded the song 'Exodus'?
-
- select artist from album
+select artist from album
 join track on (album.asin = track.album)
 where song = 'Exodus';
 
- 
-
-# Q3. Show the song for each track on the album 'Blur'
-
- 
+ -- Q3. Show the song for each track on the album 'Blur'
 
 select song from track
 join album
 on track.album = album.asin
 where artist = 'Blur';
 
- 
-# Q4. For each album show the title and the total number of track.
+ -- Q4. For each album show the title and the total number of track.
 
- SELECT title, COUNT(*)
-
-  FROM album JOIN track ON (asin=album)
-
+SELECT title, COUNT(*)
+FROM album JOIN track ON (asin=album)
 GROUP BY title;
 
  
 
-# Q5. For each album show the title and the total number of tracks containing the word 'Heart' (albums with no such tracks need not be shown).
-
- 
+-- Q5. For each album show the title and the total number of tracks containing the word 'Heart' 
+--(albums with no such tracks need not be shown).
 
 select title, count(*)
-
 from album
-
 join track on album.asin=track.album
-
 where song LIKE '%Heart%'
-
 group by title;
 
- 
-
- 
-
-# Q6. A "title track" is where the song is the same as the title. Find the title tracks.
-
- 
+-- Q6. A "title track" is where the song is the same as the title. Find the title tracks.
 
 select song from track
-
 join album on track.album = album.asin
-
 where track.song = album.title;
 
- 
-
-# Q7. An "eponymous" album is one where the title is the same as the artist (for example the album 'Blur' by the band 'Blur'). Show the eponymous albums.
-
- 
+-- Q7. An "eponymous" album is one where the title is the same as the artist (for example the album 'Blur' by the band 'Blur'). Show the eponymous albums.
 
 select title from album
-
 where title = artist;
 
- 
-
-# Q8. Find the songs that appear on more than 2 albums. Include a count of the number of times each shows up.
-
- 
+-- Q8. Find the songs that appear on more than 2 albums. Include a count of the number of times each shows up.
 
 select track.song, count(distinct album.title)
-
 from album join track on album.asin = track.album
-
 group by track.song
-
 HAVING count(distinct album.title) > 2;
 
