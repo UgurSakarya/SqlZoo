@@ -1,3 +1,4 @@
+
 -- Sql Zoo Music Tutorial Answers
 
  -- Q1. Find the title and artist who recorded the song 'Alison'.
@@ -26,9 +27,7 @@ SELECT title, COUNT(*)
 FROM album JOIN track ON (asin=album)
 GROUP BY title;
 
- 
-
--- Q5. For each album show the title and the total number of tracks containing the word 'Heart' 
+ -- Q5. For each album show the title and the total number of tracks containing the word 'Heart' 
 --(albums with no such tracks need not be shown).
 
 SELECT title, count(*)
@@ -54,4 +53,19 @@ SELECT track.song, count(distinct album.title)
 FROM album join track ON album.asin = track.album
 group by track.song
 HAVING count(distinct album.title) > 2;
+
+-- Q9. A "good value" album is one where the price per track is less than 50 pence. Find the good value album - show the title, the price and the number of tracks. 
+
+SELECT album.title, album.price, COUNT(*) AS number
+FROM album JOIN track ON album.asin = track.album
+GROUP BY album.title, album.price
+HAVING (album.price / COUNT(*)) < 0.5;
+
+-- Q10. List albums so that the album with the most tracks is first. Show the title and the number of tracks
+
+SELECT album.title, COUNT(track.song)
+FROM album
+JOIN track ON album.asin = track.album
+GROUP BY album.title
+ORDER BY COUNT(track.song) DESC;
 
