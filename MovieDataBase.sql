@@ -32,8 +32,7 @@ SELECT name
  -- Q7. Obtain the cast list for the film 'Alien' 
 SELECT name
 	FROM actor JOIN casting ON actor.id = casting.actorid
-	JOIN
-	movie ON casting.movieid = movie.id
+	JOIN movie ON casting.movieid = movie.id
 	WHERE title = 'Alien';
 	
  -- Q8. List the films in which 'Harrison Ford' has appeared
@@ -42,11 +41,22 @@ SELECT title
 	JOIN actor ON casting.actorid = actor.id
 	WHERE name = 'Harrison Ford';
 	
+ -- Q9. List the films where 'Harrison Ford' has appeared - but not in the starring role. 
+ -- [Note: the ord field of casting gives the position of the actor. If ord=1 then this actor is in the starring role]
+SELECT title
+	FROM movie JOIN casting ON movie.id = casting.movieid
+	JOIN actor ON casting.actorid = actor.id
+	WHERE (name = 'Harrison Ford' AND ord <> 1);
 	
-	
-	
-	
-	
+ -- Q10. List the films together with the leading star for all 1962 films. 
+SELECT title, actor.name
+	FROM movie JOIN casting ON movie.id = casting.movieid
+	JOIN actor ON casting.actorid = actor.id
+	WHERE (yr=1962 AND ord = 1);
+ 
+ -- Q11. Which were the busiest years for 'John Travolta', 
+ -- show the year and the number of movies he made each year for any year in which he made more than 2 movies.
+
 	
 	
 
